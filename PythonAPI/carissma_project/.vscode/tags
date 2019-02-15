@@ -1,0 +1,71 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+DataInit	../PID_apply_dynamic_sp.py	/^class DataInit:$/;"	kind:class	line:58
+DataInit	../PID_apply_static_sp.py	/^class DataInit:$/;"	kind:class	line:56
+K	../PID_apply_dynamic_sp.py	/^    K = {$/;"	kind:variable	line:59
+K	../PID_apply_static_sp.py	/^    K = {$/;"	kind:variable	line:57
+L	../PID_curve_fit.py	/^L = 1.13 # System intrinsic delay$/;"	kind:variable	line:11
+PID	../PID_controller.py	/^class PID:$/;"	kind:class	line:1
+PID_apply_dynamic_sp.py	../PID_apply_dynamic_sp.py	1;"	kind:file	line:1
+PID_apply_static_sp.py	../PID_apply_static_sp.py	1;"	kind:file	line:1
+PID_controller.py	../PID_controller.py	1;"	kind:file	line:1
+PID_curve_fit.py	../PID_curve_fit.py	1;"	kind:file	line:1
+PID_generate_step_response.py	../PID_generate_step_response.py	1;"	kind:file	line:1
+SpeedProfile	../speed_profile_reader.py	/^class SpeedProfile:$/;"	kind:class	line:7
+SpeedProfile	../speed_profile_reader_py3.py	/^class SpeedProfile:$/;"	kind:class	line:7
+StepResponseTest	../PID_generate_step_response.py	/^class StepResponseTest:$/;"	kind:class	line:20
+TestData	../PID_apply_dynamic_sp.py	/^class TestData:$/;"	kind:class	line:28
+TestData	../PID_apply_static_sp.py	/^class TestData:$/;"	kind:class	line:27
+__init__	../PID_apply_dynamic_sp.py	/^    def __init__(self, total_duration, time_increment):$/;"	kind:member	line:30
+__init__	../PID_apply_static_sp.py	/^    def __init__(self, total_duration, time_increment):$/;"	kind:member	line:29
+__init__	../PID_controller.py	/^	def __init__(self, P=2.0, I=0.0, D=1.0, Derivator=0, Integrator=0, Integrator_max=500, Integrator_min=-500):$/;"	kind:member	line:6
+append_data	../PID_apply_dynamic_sp.py	/^    def append_data(self, t, sp, vel, error):$/;"	kind:member	line:37
+append_data	../PID_apply_static_sp.py	/^    def append_data(self, t, sp, vel, error):$/;"	kind:member	line:36
+carissma_test.py	../carissma_test.py	1;"	kind:file	line:1
+carissma_test_backup.py	../carissma_test_backup.py	1;"	kind:file	line:1
+check_output_file	../PID_generate_step_response.py	/^    def check_output_file(cls):$/;"	kind:member	line:27
+coefs	../PID_curve_fit.py	/^coefs = (0.00025367167216867206, 0.013758701616520147, 0.29619387624368226)$/;"	kind:variable	line:12
+data	../speed_profile_reader.py	/^    data = instance.input_file()$/;"	kind:variable	line:30
+data	../speed_profile_reader_py3.py	/^    data = instance.input_file()$/;"	kind:variable	line:26
+file_name	../PID_generate_step_response.py	/^    file_name = 'step_response.tsv'$/;"	kind:variable	line:24
+filename	../PID_curve_fit.py	/^filename = "step_response.tsv"$/;"	kind:variable	line:10
+force_sampling_period	../PID_apply_dynamic_sp.py	/^    force_sampling_period = False$/;"	kind:variable	line:65
+func	../PID_curve_fit.py	/^def func(x, a=1, b=1, c=1):$/;"	kind:function	line:15
+getDerivator	../PID_controller.py	/^	def getDerivator(self):$/;"	kind:member	line:61
+getError	../PID_controller.py	/^	def getError(self):$/;"	kind:member	line:54
+getIntegrator	../PID_controller.py	/^	def getIntegrator(self):$/;"	kind:member	line:58
+getSetPoint	../PID_controller.py	/^	def getSetPoint(self):$/;"	kind:member	line:51
+input_file	../speed_profile_reader.py	/^    def input_file(self, default_input='speedProfile'):$/;"	kind:member	line:9
+input_file	../speed_profile_reader_py3.py	/^    def input_file(self, default_input='speedProfile'):$/;"	kind:member	line:9
+instance	../speed_profile_reader.py	/^    instance = SpeedProfile()$/;"	kind:variable	line:29
+instance	../speed_profile_reader_py3.py	/^    instance = SpeedProfile()$/;"	kind:variable	line:25
+main	../PID_apply_dynamic_sp.py	/^def main():$/;"	kind:function	line:68
+main	../PID_apply_static_sp.py	/^def main():$/;"	kind:function	line:65
+main	../PID_curve_fit.py	/^def main(mode='optimize'):$/;"	kind:function	line:19
+main	../PID_generate_step_response.py	/^def main():$/;"	kind:function	line:71
+main	../carissma_test.py	/^def main():$/;"	kind:function	line:21
+main	../carissma_test_backup.py	/^def main():$/;"	kind:function	line:20
+now	../speed_profile_reader_py3.py	/^    now = time.time()$/;"	kind:variable	line:30
+now_c	../speed_profile_reader_py3.py	/^    now_c = round(time.time() * 1e6)$/;"	kind:variable	line:31
+plot	../PID_apply_dynamic_sp.py	/^    def plot(self):$/;"	kind:member	line:44
+plot	../PID_apply_static_sp.py	/^    def plot(self):$/;"	kind:member	line:43
+plot	../PID_generate_step_response.py	/^    def plot(paired_list):$/;"	kind:member	line:34
+print_loaded_file	../speed_profile_reader.py	/^    def print_loaded_file(self):$/;"	kind:member	line:25
+print_loaded_file	../speed_profile_reader_py3.py	/^    def print_loaded_file(self):$/;"	kind:member	line:21
+sampling_period	../PID_apply_dynamic_sp.py	/^    sampling_period = 0.025$/;"	kind:variable	line:66
+sampling_period	../PID_apply_static_sp.py	/^    sampling_period = 0.025$/;"	kind:variable	line:63
+setPoint	../PID_controller.py	/^	def setPoint(self,set_point):$/;"	kind:member	line:43
+speed_profile_reader.py	../speed_profile_reader.py	1;"	kind:file	line:1
+speed_profile_reader_py3.py	../speed_profile_reader_py3.py	1;"	kind:file	line:1
+step_response_test	../PID_generate_step_response.py	/^    def step_response_test(cls, vehicle):$/;"	kind:member	line:49
+test_loop	../PID_generate_step_response.py	/^        def test_loop():$/;"	kind:function	line:61
+throttle	../PID_generate_step_response.py	/^    throttle = .8$/;"	kind:variable	line:21
+time_increment	../PID_generate_step_response.py	/^    time_increment = 0.025$/;"	kind:variable	line:23
+total_duration	../PID_apply_dynamic_sp.py	/^    total_duration = 40$/;"	kind:variable	line:64
+total_duration	../PID_apply_static_sp.py	/^    total_duration = 40$/;"	kind:variable	line:62
+total_duration	../PID_generate_step_response.py	/^    total_duration = 40$/;"	kind:variable	line:22
+update	../PID_controller.py	/^	def update(self,current_value):$/;"	kind:member	line:19
