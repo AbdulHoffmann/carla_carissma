@@ -84,15 +84,11 @@ class PIDTest:
             current_time = time.time()
             self.init_index = self.apply_dynamic_sp(
                 p,
-                self.cycle_counter,
                 speed_data,
                 current_time,
                 start_t,
-                self.init_index,
-                self.moving_list,
-                self.response_time_offset
                 )
-            self.apply_control(self.pid, self.vehicleEgo)
+            self.normalize_control(self.pid, self.vehicleEgo)
             self.pid = p.update(measurement_value)
             test_data.append_data(
                 round(current_time - start_t, 2), p.getSetPoint(),
@@ -133,18 +129,17 @@ class PIDTest:
         
         self.control_loop(p, start_time, spd_data, test_data)
 
-    def apply_dynamic_sp(self, p, cycle_counter, spd_data, current_time, start, init_index, moving_list, response_time_offset):
-        if cycle_counter % 2 == 0:
-            for row in spd_data.loc[init_index:].itertuples():
-                if (row[1] >= (round((current_time - start) * 1e6) + response_time_offset * 1e6 )):
-                    init_index = row[0]
-                    if self.running_values(row[2], moving_list, 10):
+    def apply_dynamic_sp(self, p, spd_data, current_time, start):
+        if self.cycle_counter % 2 == 0:
+            for row in spd_data.loc[self.init_index:].itertuples():
+                if (row[1] >= (round((current_time - start) * 1e6) + self.response_time_offset * 1e6 )):
+                    self.init_index = row[0]
+                    if self.running_values(row[2], self.moving_list, 10):
                         p.setPoint(row[2])
                         # print(row[1], round((current_time - start) * 1e6), row[2])
-                    return init_index
+                    return self.init_index
 
-
-    def apply_control(self, pid, vehicleEgo):
+    def normalize_control(self, pid, vehicleEgo):
         if 1 >= pid >= 0:
             vehicleEgo.apply_control(carla.VehicleControl(throttle=pid, brake=0))
         elif 0 > pid >= -1:
@@ -159,12 +154,6 @@ class PIDTest:
         if len(moving_list) >= N+1:
                 return False if x <= 1.1*moving_list[-N] else True
         return True
-
-# def running_values(x, moving_list, N):
-#     moving_list.append(x)
-#     if len(moving_list) >= N+1:
-#             return False if x <= 1.1*moving_list[-N] else True
-#     return True
 
 def main():
 
