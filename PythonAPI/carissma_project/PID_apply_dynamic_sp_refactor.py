@@ -63,7 +63,7 @@ class TestData:
 
 class PIDTest:
 
-    def __init__(self, ego, gains, total_duration, windup_values=None, force_sampling_period=True, sampling_period=0.025, response_time_offset=0):
+    def __init__(self, ego, gains, total_duration, windup_values=None, force_sampling_period=True, sampling_period=0.025, response_time_offset=0, sp_tracking_method=0):
         self.K = gains
         self.windup_values = windup_values
         self.total_duration = total_duration
@@ -77,12 +77,40 @@ class PIDTest:
         self.cycle_counter = 1
         self.init_index = 0
         self.input_sp = 0
+        self.sp_tracking_method = sp_tracking_method
+
+    def run(self):
+
+        spd_data = self.spd_profile.input_file()
+        test_data = TestData(self.total_duration, self.sampling_period, spd_data)
+
+        print('\nStarting test:\n\n' + 'Time(s) current_vel(m/s) setpoint_vel(m/s) throttle(%) pid_demand')
+        time.sleep(1.25)
+        print('.................................................................\n')
+        time.sleep(.25)
+
+        p = PID(
+                self.K['Kp'], 
+                self.K['Ki'],
+                self.K['Kd']
+                )
+        p.setPoint(self.input_sp)
+        if self.windup_values is not None:
+            p.setWindup(*self.windup_values)
+        # self.get_sp_from_data(spd_data)
+
+        # sys.exit() # debug
+
+        start_time = time.time()
+        
+        self.control_loop(p, start_time, spd_data, test_data)
 
     def control_loop(self, p, start_t, speed_data, test_data):
         for _ in range(int(self.total_duration / self.sampling_period) + 1):
             measurement_value = self.vehicleEgo.get_velocity().x
             current_time = time.time()
-            self.init_index = self.apply_dynamic_sp(
+            print(1)
+            self.apply_dynamic_sp(
                 p,
                 speed_data,
                 current_time,
@@ -107,37 +135,14 @@ class PIDTest:
 
         test_data.plot()
 
-    def run(self):
-
-        print('\nStarting test:\n\n' + 'Time(s) current_vel(m/s) setpoint_vel(m/s) throttle(%) pid_demand')
-        time.sleep(1.25)
-        print('.................................................................\n')
-        time.sleep(.5)
-
-        spd_data = self.spd_profile.input_file()
-        test_data = TestData(self.total_duration, self.sampling_period, spd_data)
-        p = PID(
-                self.K['Kp'], 
-                self.K['Ki'],
-                self.K['Kd']
-                )
-        p.setPoint(self.input_sp)
-        if self.windup_values is not None:
-            print('dentro')
-            p.setWindup(*self.windup_values)
-        start_time = time.time()
-        
-        self.control_loop(p, start_time, spd_data, test_data)
-
     def apply_dynamic_sp(self, p, spd_data, current_time, start):
         if self.cycle_counter % 2 == 0:
             for row in spd_data.loc[self.init_index:].itertuples():
-                if (row[1] >= (round((current_time - start) * 1e6) + self.response_time_offset * 1e6 )):
-                    self.init_index = row[0]
-                    if self.running_values(row[2], self.moving_list, 10):
-                        p.setPoint(row[2])
-                        # print(row[1], round((current_time - start) * 1e6), row[2])
-                    return self.init_index
+                if self.sp_tracking_method == 0:
+                    if (row[1] >= (round((current_time - start) * 1e6) + self.response_time_offset * 1e6 )):
+                        self.init_index = row[0]
+                        if self.running_values(row[2], 10):
+                            p.setPoint(row[2])
 
     def normalize_control(self, pid, vehicleEgo):
         if 1 >= pid >= 0:
@@ -149,10 +154,14 @@ class PIDTest:
         elif -1 > pid:
             vehicleEgo.apply_control(carla.VehicleControl(throttle=0, brake=1))
 
-    def running_values(self, x, moving_list, N):
-        moving_list.append(x)
-        if len(moving_list) >= N+1:
-                return False if x <= 1.1*moving_list[-N] else True
+    def get_sp_from_data(self, speed_data):
+        print(speed_data.iloc[10])
+        print(list(speed_data.columns.values))
+        
+    def running_values(self, x, N):
+        self.moving_list.append(x)
+        if len(self.moving_list) >= N+1:
+                return False if x <= 1.1*self.moving_list[-N] else True
         return True
 
 def main():
@@ -219,7 +228,7 @@ def main():
         duration = 20
         t_offset = 1.5
 
-        test_track_pid = PIDTest(vehicleEgo, K, duration, windup_values=windup_guard, response_time_offset=t_offset,)
+        test_track_pid = PIDTest(vehicleEgo, K, duration, windup_values=windup_guard, response_time_offset=t_offset)
         test_track_pid.run()
 
     finally:
